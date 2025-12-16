@@ -171,11 +171,11 @@
 function getCvikImage(nazov) {
   let n = nazov.toLowerCase();
 
-  // RUČNÉ OPRAVY (namieria kód na presné súbory na GitHube)
+  // RUČNÉ OPRAVY (presné smerovanie na tvoje súbory)
   if (n.includes("angličáky")) return "anglikaky_burpees.png"; 
   if (n.includes("tlaky nad hlavu")) return "tlaky_nad_hlavu.png";
   
-  // TOTO JE OPRAVA PRE TVOJ POSLEDNÝ CHÝBAJÚCI OBRÁZOK
+  // Táto podmienka musí byť presne takto, aby našla "ramená" s dĺžňom
   if (n.includes("tlaky na ramená") || n.includes("tlaky na ramena")) {
       return "tlaky_na_ramena_v_stoji.png";
   }
