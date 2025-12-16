@@ -204,62 +204,59 @@
     }
 
 
-    function zobrazPlan() {
-      const planBox = document.getElementById("plany");
-      const odporBox = document.getElementById("odporucanie");
-      const nazovCieluElement = document.getElementById("nazovCielu");
-      planBox.innerHTML = "";
+   function zobrazPlan() {
+  const planBox = document.getElementById("plany");
+  const odporBox = document.getElementById("odporucanie");
+  const nazovCieluElement = document.getElementById("nazovCielu");
+  planBox.innerHTML = "";
 
-      nazovCieluElement.textContent = nazvyCielov[ciel] || "Tréningový plán";
+  nazovCieluElement.textContent = nazvyCielov[ciel] || "Tréningový plán";
 
-      if (ciel && plany[ciel] && plany[ciel][aktualnyVariant]) {
+  if (ciel && plany[ciel] && plany[ciel][aktualnyVariant]) {
 
-        plany[ciel][aktualnyVariant].forEach((den, j) => {
+    plany[ciel][aktualnyVariant].forEach((den, j) => {
+      const div = document.createElement("div");
+      div.className = "plan";
+      div.innerHTML = `<h3>${den.den}</h3>`;
 
-          const div = document.createElement("div");
-          div.className = "plan";
+      den.cviky.forEach((c, i) => {
+          const idVysledku = `vysledok-${ciel}-${aktualnyVariant}-${j}-${i}`;
+          const nazovObrazku = getCvikImage(c.nazov);
+          const triedaZarovnania = (i % 2 === 0) ? 'odd' : 'even';
 
-          // Pridanie názvu dňa
-          div.innerHTML = `<h3>${den.den}</h3>`;
+          setTimeout(() => {
+            vypocitaj(c.nazov, idVysledku);
+          }, 0);
 
-          den.cviky.forEach((c, i) => {
-              const idVysledku = `vysledok-${ciel}-${aktualnyVariant}-${j}-${i}`;
-              const nazovObrazku = getCvikImage(c.nazov);
-              const triedaZarovnania = (i % 2 === 0) ? 'odd' : 'even'; // Striedanie tried
-
-              setTimeout(() => {
-                vypocitaj(c.nazov, idVysledku);
-              }, 0);
-
-              const cvikHTML = `
-                <div class='cvik-container ${triedaZarovnania}'> 
-                  
-                  <div class="cvik-obrazok"> 
-                    <p class="nazov-cviku-obrazok">${c.nazov}</p>
-                    <img src="Galeria/${nazovObrazku}" alt="${c.nazov}">
-                  </div>
-
-                  <div class='cvik'>
-                    <strong>${c.nazov}</strong><br>${c.popis}
-                    <div id="${idVysledku}" class="vysledok-staticky"></div>
-                  </div>
-                  
-                </div>
-              `;
+          const cvikHTML = `
+            <div class='cvik-container ${triedaZarovnania}'> 
               
-              div.innerHTML += cvikHTML;
-          });
+              <div class="cvik-obrazok"> 
+                <p class="nazov-cviku-obrazok">${c.nazov}</p>
+                <img src="${nazovObrazka}" alt="${c.nazov}">
+              </div>
 
-          planBox.appendChild(div);
-        });
+              <div class='cvik'>
+                <strong>${c.nazov}</strong><br>${c.popis}
+                <div id="${idVysledku}" class="vysledok-staticky"></div>
+              </div>
+              
+            </div>
+          `;
+          
+          div.innerHTML += cvikHTML;
+      });
 
-        odporBox.innerHTML = `
-          <div class="odporucanie">
-            <h2>Odporúčania</h2>
-            <p>${odporucania[ciel]}</p>
-          </div>`;
-      }
-    }
+      planBox.appendChild(div);
+    });
+
+    odporBox.innerHTML = `
+      <div class="odporucanie">
+        <h2>Odporúčania</h2>
+        <p>${odporucania[ciel]}</p>
+      </div>`;
+  }
+}
 
     function vypocitaj(nazov, vysId) {
       const vysledokElement = document.getElementById(vysId);
