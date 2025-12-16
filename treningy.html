@@ -172,18 +172,21 @@
 function getCvikImage(nazov) {
   let n = nazov.toLowerCase();
 
-  // RUČNÉ OPRAVY
-  if (n.includes("angličáky")) return "anglikaky_burpees.png";
+  // RUČNÉ OPRAVY - smerujú na tvoje konkrétne súbory na GitHube
+  if (n.includes("angličáky")) return "anglikaky_burpees.png"; 
+  
+  // Oprava pre Tlaky nad hlavu
   if (n.includes("tlaky nad hlavu")) return "tlaky_nad_hlavu.png";
-
-  // Táto poistka hľadá kľúčové slovo "ramen", čím obíde problém s á/a
-  if (n.includes("ramen")) {
+  
+  // Oprava pre Ramená (v tvojom pláne máš "ramena" aj "ramená")
+  if (n.includes("ramena") || n.includes("ramená")) {
       return "tlaky_na_ramena_v_stoji.png";
   }
-
+  
   if (n.includes("bench press")) return "bench_press.png";
+  if (n.includes("mŕtvy ťah")) return "mrtvy_tah.png";
 
-  // AUTOMATIKA (odstráni mäkčene pre ostatné súbory)
+  // AUTOMATIKA pre ostatné
   return n.normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .replace(/ /g, '_')
