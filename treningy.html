@@ -171,16 +171,18 @@
 function getCvikImage(nazov) {
   let n = nazov.toLowerCase();
 
-  // Presné smerovanie na súbory, ktoré máš na GitHube
-  if (n.includes("angličáky")) return "anglikaky_burpees.png";
-  if (n.includes("tlaky nad hlavu")) return "tlaky_nad_hlavou.png";
+  // RUČNÉ OPRAVY (namieria kód na presné súbory na GitHube)
+  if (n.includes("angličáky")) return "anglikaky_burpees.png"; 
+  if (n.includes("tlaky nad hlavu")) return "tlaky_nad_hlavu.png";
   
-  // Tento riadok opraví tvoj problém s "ramená" (hľadá 'ramena' bez dĺžňa)
-  if (n.includes("tlaky na ramená")) return "tlaky_na_ramena_v_stoji.png";
+  // TOTO JE OPRAVA PRE TVOJ POSLEDNÝ CHÝBAJÚCI OBRÁZOK
+  if (n.includes("tlaky na ramená") || n.includes("tlaky na ramena")) {
+      return "tlaky_na_ramena_v_stoji.png";
+  }
   
   if (n.includes("bench press")) return "bench_press.png";
 
-  // Ostatné cviky (odstráni mäkčene a nahradí medzery)
+  // AUTOMATIKA (odstráni slovenské znaky pre ostatné súbory)
   return n.normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .replace(/ /g, '_')
