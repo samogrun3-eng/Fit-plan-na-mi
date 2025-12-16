@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
- 
+
   <h1>Tvoj tréningový plán pre cieľ: <span id="nazovCielu"></span></h1>
 
   <div>
@@ -25,7 +25,6 @@
     const vaha = parseFloat(localStorage.getItem("vaha"));
     let aktualnyVariant = "A";
 
-    // Váš pôvodný objekt 'plany' (zostáva nezmenený)
     const plany = {
       naberanie: {
         A: [
@@ -44,8 +43,7 @@
               { nazov: "Príťahy v predklone", popis: "Stredná váha, 8–10 opakovaní. 4 série." },
               { nazov: "Biceps s činkami", popis: "Pomalé tempo, 10–12 opakovaní. 3 série." }
             ]
-          }
-           ,
+          },
           {
             den: "Piatok – Nohy + Ramená",
             cviky: [
@@ -96,7 +94,7 @@
             den: "Piatok – HIIT + Brucho",
             cviky: [
               { nazov: "Beh", popis: "20 minút, striedanie 30s rýchlo/60s pomaly." },
-              { nazov: "Drevená doska (Plank)", popis: "3x 60 sekúnd." }
+              { nazov: "Plank", popis: "3x 60 sekúnd." }
             ]
           }
         ],
@@ -134,7 +132,7 @@
             cviky: [
               { nazov: "Tlaky na ramena v stoji", popis: "3 série, 12 opakovaní." },
               { nazov: "Veslovanie", popis: "15 minút, stabilné tempo." },
-              { nazov: "Jóga/Strečing", popis: "15 minút." }
+              { nazov: "Jóga", popis: "15 minút." }
             ]
           }
         ],
@@ -162,129 +160,76 @@
     const odporucania = {
       naberanie: "Cvič 4–5 dní v týždni, zameraj sa na progresívne zvyšovanie váh. Jedz v kalorickom nadbytku (+300 až +500 kcal).",
       chudnutie: "Cvič 3–4 dni v týždni (Kardio + Silový). Jedz v kalorickom deficite (–300 až –500 kcal). Zvýš príjem bielkovín.",
-      udrzanie: "Cvič 3 dni v týždni. Kombinuj silový tréning s kardio a flexibilitou. Kalórie udržuj na úrovni bazálneho metabolizmu."
+      udrzanie: "Cvič 3 dni v týždni. Kombinuj silový tréning s kardio a flexibilitou."
     };
     
     const nazvyCielov = {
         naberanie: "Naberanie svalovej hmoty",
         chudnutie: "Chudnutie a redukcia tuku",
-        udrzanie: "Zostať fit (udržanie kondície)"
+        udrzanie: "Zostať fit"
     };
 
-
-    // Opravená funkcia (boli chyby v zátvorkách v pôvodnom kóde)
     function getCvikImage(nazov) {
-      let nazovPreObrazok = nazov.toLowerCase()
+      return nazov.toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
         .replace(/ /g, '_')
-        .replace(/č/g, 'c')
-        .replace(/ý/g, 'y')
-        .replace(/ú/g, 'u')
-        .replace(/á/g, 'a')
-        .replace(/é/g, 'e')
-        .replace(/í/g, 'i')
-        .replace(/ľ/g, 'l')
-        .replace(/ť/g, 't')
-        .replace(/ň/g, 'n')
-        .replace(/š/g, 's')
-        .replace(/ž/g, 'z')
-        .replace(/ô/g, 'o')
-        .replace(/ä/g, 'a')
-        .replace(/[^\w-]/g, '');
-
-        if (nazov.toLowerCase().includes("mŕtvy ťah")) return "mrtvy_tah.png";
-        if (nazov.toLowerCase().includes("bench press")) return "bench_press.png";
-        if (nazov.toLowerCase().includes("drepy")) return "drepy.png";
-        if (nazov.toLowerCase().includes("tlaky nad hlavu")) return "tlaky_nad_hlavou.png"; 
-        if (nazov.toLowerCase().includes("veslovanie")) return "veslovanie.png";
-        if (nazov.toLowerCase().includes("jóga")) return "joga.png";
-        if (nazov.toLowerCase().includes("bicyklovanie(indoor/outdoor)")) return "bicyklovanie_outdoor_indoor.png";
-
-
-      return `${nazovPreObrazok}.png`;
+        .replace(/[^\w-]/g, '') + ".png";
     }
 
+    function zobrazPlan() {
+      const planBox = document.getElementById("plany");
+      const odporBox = document.getElementById("odporucanie");
+      const nazovCieluElement = document.getElementById("nazovCielu");
+      planBox.innerHTML = "";
 
-   function zobrazPlan() {
-  const planBox = document.getElementById("plany");
-  const odporBox = document.getElementById("odporucanie");
-  const nazovCieluElement = document.getElementById("nazovCielu");
-  planBox.innerHTML = "";
+      nazovCieluElement.textContent = nazvyCielov[ciel] || "Tréningový plán";
 
-  nazovCieluElement.textContent = nazvyCielov[ciel] || "Tréningový plán";
+      if (ciel && plany[ciel] && plany[ciel][aktualnyVariant]) {
+        plany[ciel][aktualnyVariant].forEach((den, j) => {
+          const div = document.createElement("div");
+          div.className = "plan";
+          div.innerHTML = `<h3>${den.den}</h3>`;
 
-  if (ciel && plany[ciel] && plany[ciel][aktualnyVariant]) {
+          den.cviky.forEach((c, i) => {
+              const idVysledku = `vysledok-${ciel}-${aktualnyVariant}-${j}-${i}`;
+              const nazovObrazka = getCvikImage(c.nazov);
+              const triedaZarovnania = (i % 2 === 0) ? 'odd' : 'even';
 
-    plany[ciel][aktualnyVariant].forEach((den, j) => {
-      const div = document.createElement("div");
-      div.className = "plan";
-      div.innerHTML = `<h3>${den.den}</h3>`;
+              setTimeout(() => { vypocitaj(c.nazov, idVysledku); }, 0);
 
-      den.cviky.forEach((c, i) => {
-          const idVysledku = `vysledok-${ciel}-${aktualnyVariant}-${j}-${i}`;
-          const nazovObrazku = getCvikImage(c.nazov);
-          const triedaZarovnania = (i % 2 === 0) ? 'odd' : 'even';
-
-          setTimeout(() => {
-            vypocitaj(c.nazov, idVysledku);
-          }, 0);
-
-          const cvikHTML = `
-            <div class='cvik-container ${triedaZarovnania}'> 
-              
-              <div class="cvik-obrazok"> 
-                <p class="nazov-cviku-obrazok">${c.nazov}</p>
-                <img src="${nazovObrazka}" alt="${c.nazov}">
-              </div>
-
-              <div class='cvik'>
-                <strong>${c.nazov}</strong><br>${c.popis}
-                <div id="${idVysledku}" class="vysledok-staticky"></div>
-              </div>
-              
-            </div>
-          `;
-          
-          div.innerHTML += cvikHTML;
-      });
-
-      planBox.appendChild(div);
-    });
-
-    odporBox.innerHTML = `
-      <div class="odporucanie">
-        <h2>Odporúčania</h2>
-        <p>${odporucania[ciel]}</p>
-      </div>`;
-  }
-}
+              div.innerHTML += `
+                <div class='cvik-container ${triedaZarovnania}'> 
+                  <div class="cvik-obrazok"> 
+                    <p class="nazov-cviku-obrazok">${c.nazov}</p>
+                    <img src="${nazovObrazka}" alt="${c.nazov}">
+                  </div>
+                  <div class='cvik'>
+                    <strong>${c.nazov}</strong><br>${c.popis}
+                    <div id="${idVysledku}" class="vysledok-staticky"></div>
+                  </div>
+                </div>
+              `;
+          });
+          planBox.appendChild(div);
+        });
+        odporBox.innerHTML = `<div class="odporucanie"><h2>Odporúčania</h2><p>${odporucania[ciel]}</p></div>`;
+      }
+    }
 
     function vypocitaj(nazov, vysId) {
       const vysledokElement = document.getElementById(vysId);
-      const w = vaha;
-
-      if (!vysledokElement) return;
-
-      if (!w || w < 10 || w > 300) {
-        vysledokElement.innerHTML = `<span style="color:red;">Zadaj platnú hmotnosť.</span>`;
-        return;
-      }
+      if (!vysledokElement || !vaha) return;
 
       let multiplikator = 1.0;
-      let nazovN = nazov.toLowerCase();
+      let n = nazov.toLowerCase();
+      if (n.includes("drep") || n.includes("výpady")) multiplikator = 1.5;
+      else if (n.includes("mŕtvy")) multiplikator = 1.75;
+      else if (n.includes("bench")) multiplikator = 0.9;
+      else if (n.includes("tlaky")) multiplikator = 0.6;
+      else if (n.includes("biceps")) multiplikator = 0.35;
 
-      if (nazovN.includes("drep") || nazovN.includes("výpady")) multiplikator = 1.5;
-      else if (nazovN.includes("mŕtvy")) multiplikator = 1.75;
-      else if (nazovN.includes("bench") || nazovN.includes("bradlách")) multiplikator = 0.9;
-      else if (nazovN.includes("tlaky nad hlavu")) multiplikator = 0.6;
-      else if (nazovN.includes("biceps")) multiplikator = 0.35;
-      else if (nazovN.includes("triceps") || nazovN.includes("francúzsky")) multiplikator = 0.4;
-      else if (nazovN.includes("príťahy")) multiplikator = 0.7;
-
-      const ideal = (w * multiplikator).toFixed(1);
-
-      vysledokElement.innerHTML = `
-        🏋️‍♂️ Odporúčaná váha pre cvik : <strong>${ideal} kg</strong> 💪💥
-      `;
+      vysledokElement.innerHTML = `🏋️‍♂️ Odporúčaná váha: <strong>${(vaha * multiplikator).toFixed(1)} kg</strong>`;
     }
 
     function zmenVariant(variant) {
@@ -296,10 +241,5 @@
 
     zobrazPlan();
   </script>
-
-<p>
-Informácie sú orientačné. Pred cvičením sa poraď s trénerom. Používaš na vlastné riziko.
-</p>
-
 </body>
 </html>
