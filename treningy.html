@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tvoj tréningový plán</title>
@@ -171,14 +172,26 @@
 function getCvikImage(nazov) {
   let n = nazov.toLowerCase();
 
-  // RUČNÉ OPRAVY (presné smerovanie na tvoje súbory)
+  // RUČNÉ OPRAVY - smerujú na tvoje konkrétne súbory na GitHube
   if (n.includes("angličáky")) return "anglikaky_burpees.png"; 
+  
+  // Oprava pre Tlaky nad hlavu
   if (n.includes("tlaky nad hlavu")) return "tlaky_nad_hlavu.png";
   
-  // Táto podmienka musí byť presne takto, aby našla "ramená" s dĺžňom
-  if (n.includes("tlaky na ramená") || n.includes("tlaky na ramena")) {
+  // Oprava pre Ramená (v tvojom pláne máš "ramena" aj "ramená")
+  if (n.includes("ramena") || n.includes("ramená")) {
       return "tlaky_na_ramena_v_stoji.png";
   }
+  
+  if (n.includes("bench press")) return "bench_press.png";
+  if (n.includes("mŕtvy ťah")) return "mrtvy_tah.png";
+
+  // AUTOMATIKA pre ostatné
+  return n.normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/ /g, '_')
+          .replace(/[^\w-]/g, '') + ".png";
+}
   
   if (n.includes("bench press")) return "bench_press.png";
 
