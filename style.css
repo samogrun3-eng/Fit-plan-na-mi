@@ -1,90 +1,91 @@
 
+
 body {
-    background-color: #222;
-    color: white;
-    font-family: Arial, sans-serif;
-    /* Centrálne zarovnanie textu v celom tele */
-    text-align: center;
+    background-color: #222;
+    color: white;
+    font-family: Arial, sans-serif;
+    /* Centrálne zarovnanie textu v celom tele */
+    text-align: center;
 }
 h1 {
-    font-size: 32px;
-    font-weight: bold;
-    margin-top: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 nav {
-    margin: 20px 0;
+    margin: 20px 0;
 }
 
 nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    border: 1px solid white;
-    padding: 5px 10px;
-    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    border: 1px solid white;
+    padding: 5px 10px;
+    border-radius: 10px;
 }
 
 nav a:hover {
-    background: white;
-    color: black;
+    background: white;
+    color: black;
 }
 
 form {
-    display: inline-block;
-    background: #333;
-    padding: 20px;
-    border-radius: 10px;
+    display: inline-block;
+    background: #333;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 input,
 select,
 button {
-    display: block;
-    margin: 10px auto;
-    padding: 8px;
-    width: 200px;
-    border: none;
-    border-radius: 5px;
+    display: block;
+    margin: 10px auto;
+    padding: 8px;
+    width: 200px;
+    border: none;
+    border-radius: 5px;
 }
 
 button {
-    background: white;
-    color: black;
-    cursor: pointer;
-    font-weight: bold;
+    background: white;
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .logo {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-weight: bold;
 }
 
 #vysledok {
-    margin-top: 30px;
-    background: #333;
-    padding: 15px;
-    border-radius: 10px;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 30px;
+    background: #333;
+    padding: 15px;
+    border-radius: 10px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 a {
-    color: white;
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-    border: 1px solid white;
-    padding: 5px 10px;
-    border-radius: 8px;
+    color: white;
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    border: 1px solid white;
+    padding: 5px 10px;
+    border-radius: 8px;
 }
 
 a:hover {
-    background: white;
-    color: black;
+    background: white;
+    color: black;
 }
 
 
@@ -93,42 +94,42 @@ a:hover {
 /* ========================================================= */
 
 .plan {
-    background: #333;
-    margin: 15px auto;
-    padding: 15px;
-    border-radius: 10px;
-    width: 80%;
-    text-align: center; 
+    background: #333;
+    margin: 15px auto;
+    padding: 15px;
+    border-radius: 10px;
+    width: 80%;
+    text-align: center; 
 }
 
 .plan h3 {
-    color: #f7c331;
+    color: #f7c331;
 }
 
 .odporucanie {
-    margin-top: 30px;
-    background: #333;
-    padding: 15px;
-    border-radius: 10px;
-    width: 85%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+    margin-top: 30px;
+    background: #333;
+    padding: 15px;
+    border-radius: 10px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .variant-btn {
-    background: white;
-    color: black;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 5px;
+    background: white;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px;
 }
 
 .variant-btn.active {
-    background: #f7c331;
+    background: #f7c331;
 }
 
 
@@ -141,63 +142,85 @@ a:hover {
 /* ========================================================= */
 
 .cvik strong {
-    color: #87ceeb;
+    color: #87ceeb;
 }
 
 /* Flexbox kontajner pre zarovnanie popisu a obrázku */
 .cvik-container {
-    display: flex; 
-    width: 95%; 
-    max-width: 700px; 
-    margin: 20px auto; 
-    align-items: center; 
-    padding: 10px;
-    border-bottom: 1px solid #444; 
-    text-align: initial; 
+    display: flex; 
+    width: 95%; 
+    max-width: 700px; 
+    margin: 20px auto; 
+    align-items: center; 
+    padding: 10px;
+    border-bottom: 1px solid #444; 
+    text-align: initial; 
 }
 
-/* Container pre cvik - zabezpečí čiaru pod každým cvikom */
-.cvik-container {
-    width: 90%;
-    margin: 10px auto;
-    border-bottom: 2px solid #555; /* Táto čiara oddeľuje cviky */
-    padding-bottom: 15px;
+.cvik-container:last-child {
+    border-bottom: none; 
 }
 
+/* Kontajner pre popis cviku */
 .cvik {
-    text-align: left; /* Všetko zarovnané doľava */
-    display: flex;
-    flex-direction: column;
+    flex-grow: 1; 
+    padding: 0 15px; 
+    margin-bottom: 0; 
+    /* KLÚČOVÁ ZMENA: Všetok text vždy zarovnaný doľava */
+    text-align: left; 
 }
 
-/* Žltý názov začína presne vľavo */
+/* Štýl pre box s obrázkom */
+.cvik-obrazok {
+    flex-shrink: 0; 
+    text-align: center; 
+}
+
+/* Veľkosť obrázku: 140px */
+.cvik-obrazok img {
+    width: 175px; 
+    height: auto;
+    display: block; 
+    border-radius: 5px; 
+    background-color: #1a1a1a; 
+    margin-top: 5px; 
+}
+
+/* Názov cviku nad obrázkom */
 .nazov-cviku-obrazok {
-    color: #f7c331;
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin: 10px 0 5px 0;
+    font-weight: bold;
+    color: #f7c331; 
+    margin: 0;
+    font-size: 1.1em;
 }
 
-/* Obrázok pod názvom */
-.img-cvik {
-    width: 180px;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
+
+/* --- PRAVIDLO PRE JEDNOTNÉ ZAROVNANIE (Obrázok VĽAVO, Text VPRAVO) --- */
+.cvik-container.jednotne-zarovnanie {
+    /* Predvolené zarovnanie: Obrázok vľavo, Text vpravo */
+    flex-direction: row; 
 }
 
-/* Popis a váha pod obrázkom */
-.text-popis {
-    color: white;
-    font-size: 1rem;
-    line-height: 1.4;
-}
+/* Staré pravidlá pre .odd a .even boli odstránené. */
 
+
+/* NOVÝ ŠTÝL pre zobrazenie váhy */
 .vysledok-staticky {
-    margin-top: 10px;
-    background: #444;
-    padding: 8px;
-    border-radius: 5px;
-    color: #f7c331;
-    display: inline-block; /* Aby nebol na celú šírku */
+    margin-top: 8px;
+    background: #444444; 
+    color: #cccccc; 
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #f0c14b; 
+    display: flex;
+    /* Zarovnanie odporúčanej váhy doľava */
+    justify-content: flex-start; 
+    align-items: center;
+    gap: 8px;
+    font-size: 1em;
 }
+
+.vysledok-staticky strong {
+    color: white; 
+} vpis to rovno do kodu
